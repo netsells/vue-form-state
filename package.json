@@ -1,5 +1,5 @@
 {
-  "name": "vue-form-state",
+  "name": "@netsells/vue-form-state",
   "version": "0.1.0",
   "private": true,
   "scripts": {
