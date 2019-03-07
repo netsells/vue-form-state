@@ -1,7 +1,8 @@
 {
   "name": "@netsells/vue-form-state",
   "version": "0.1.0",
-  "private": true,
+  "main": "dist/index.common.js",
+  "unpkg": "dist/index.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name index --entry ./src/index.js",
@@ -41,6 +42,6 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 8"
+    "ie >= 11"
   ]
 }
