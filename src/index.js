@@ -9,13 +9,13 @@ export default class VueFormStatePlugin {
     ) {
         const name = options.name || 'form-state';
         const parseError = options.parseError || function(error) { return error };
-        const parseResponse = options.parseResponse || function(response) { return response };
+        const parseResult = options.parseResult || function(result) { return result };
 
         Vue.component(name, VueFormState);
 
         Vue.prototype.$formState = {
             parseError,
-            parseResponse,
+            parseResult,
         };
     }
 }
