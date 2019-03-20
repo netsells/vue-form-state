@@ -12,47 +12,19 @@
 </template>
 
 <script>
+    import withFormState from './with-form-state.mixin';
+
     export default {
         name: 'vue-form-state',
+
+        mixins: [
+            withFormState(),
+        ],
 
         props: {
             submit: {
                 type: Function,
                 required: true,
-            },
-        },
-
-        data() {
-            return {
-                loading: false,
-                rawError: null,
-                rawResult: null,
-            };
-        },
-
-        computed: {
-            result() {
-                return this.$formState.parseResult(this.rawResult);
-            },
-
-            error() {
-                return this.$formState.parseError(this.rawError);
-            },
-        },
-
-        methods: {
-            async handleSubmit(...args) {
-                try {
-                    this.loading = true;
-                    this.rawError = null;
-                    this.rawResult = null;
-
-                    this.rawResult = await this.submit(...args);
-                } catch(e) {
-                    this.rawError = e;
-                } finally {
-                    this.loading = false;
-                }
             },
         },
     };

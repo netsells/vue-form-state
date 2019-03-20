@@ -1,6 +1,7 @@
 import VueFormState from './vue-form-state';
+import withFormState from './with-form-state.mixin';
 
-export { VueFormState };
+export { VueFormState, withFormState };
 
 export default class VueFormStatePlugin {
     static install(
