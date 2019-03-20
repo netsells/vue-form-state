@@ -2,6 +2,9 @@
     <div class="vue-form-state">
         <slot
             :loading="loading"
+            :raw-result="rawResult"
+            :raw-error="rawError"
+            :result="result"
             :error="error"
             :submit="handleSubmit"
         />
@@ -22,20 +25,31 @@
         data() {
             return {
                 loading: false,
-                error: null,
-                result: null,
+                rawError: null,
+                rawResult: null,
             };
+        },
+
+        computed: {
+            result() {
+                return this.$formState.parseResult(this.rawResult);
+            },
+
+            error() {
+                return this.$formState.parseError(this.rawError);
+            },
         },
 
         methods: {
             async handleSubmit(...args) {
                 try {
                     this.loading = true;
-                    this.error = null;
+                    this.rawError = null;
+                    this.rawResult = null;
 
-                    this.result = await this.submit(...args);
+                    this.rawResult = await this.submit(...args);
                 } catch(e) {
-                    this.error = e;
+                    this.rawError = e;
                 } finally {
                     this.loading = false;
                 }
