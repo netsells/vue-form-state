@@ -35,10 +35,7 @@ describe('VueFormState', () => {
             });
 
             localVue = createLocalVue();
-            localVue.use(VueFormState, {
-                parseError: error => error && error.toUpperCase(),
-                parseResult: resp => resp && resp.toString().split('').reverse().join(''),
-            });
+
             submit = jest.fn().mockImplementation(() => promise);
 
             testComponent = {
@@ -69,76 +66,101 @@ describe('VueFormState', () => {
                     submit,
                 },
             };
+        });
 
-            wrapper = mount(testComponent, {
-                localVue,
+        const sharedTests = (parsedResult, parsedError) => {
+            it('renders a div', () => {
+                expect(wrapper.contains('div')).toBe(true);
             });
-        });
 
-        it('renders a div', () => {
-            expect(wrapper.contains('div')).toBe(true);
-        });
+            it('renders the slot', () => {
+                expect(wrapper.contains('form')).toBe(true);
+            });
 
-        it('renders the slot', () => {
-            expect(wrapper.contains('form')).toBe(true);
-        });
+            it('sets loading to false', () => {
+                expect(wrapper.find('#loading').text()).toBe('false');
+            });
 
-        it('sets loading to false', () => {
-            expect(wrapper.find('#loading').text()).toBe('false');
-        });
+            describe('when form submitted', () => {
+                beforeEach(() => {
+                    wrapper.find('form').trigger('submit');
+                });
 
-        describe('when form submitted', () => {
+                afterEach(() => {
+                    resolve();
+                });
+
+                it('calls the submit function', () => {
+                    expect(submit).toHaveBeenCalled();
+                });
+
+                it('sets loading to true', () => {
+                    expect(wrapper.find('#loading').text()).toBe('true');
+                });
+
+                describe('when promise resolves', () => {
+                    beforeEach(() => {
+                        resolve('foo');
+                    });
+
+                    it('sets the raw result to the response', () => {
+                        expect(wrapper.find('#rawResult').text()).toBe('foo');
+                    });
+
+                    it('sets the result to the parsed result', () => {
+                        expect(wrapper.find('#result').text()).toBe(parsedResult);
+                    });
+
+                    it('sets loading to false', () => {
+                        expect(wrapper.find('#loading').text()).toBe('false');
+                    });
+                });
+
+                describe('when promise rejects', () => {
+                    beforeEach(() => {
+                        reject('bar');
+                    });
+
+                    it('sets the raw error to the response', () => {
+                        expect(wrapper.find('#rawError').text()).toBe('bar');
+                    });
+
+                    it('sets the error to the parsed error', () => {
+                        expect(wrapper.find('#error').text()).toBe(parsedError);
+                    });
+
+                    it('sets loading to false', () => {
+                        expect(wrapper.find('#loading').text()).toBe('false');
+                    });
+                });
+            });
+        };
+
+        describe('when parse functions are used', () => {
             beforeEach(() => {
-                wrapper.find('form').trigger('submit');
-            });
-
-            afterEach(() => {
-                resolve();
-            });
-
-            it('calls the submit function', () => {
-                expect(submit).toHaveBeenCalled();
-            });
-
-            it('sets loading to true', () => {
-                expect(wrapper.find('#loading').text()).toBe('true');
-            });
-
-            describe('when promise resolves', () => {
-                beforeEach(() => {
-                    resolve('foo');
+                localVue.use(VueFormState, {
+                    parseError: error => error && error.toUpperCase(),
+                    parseResult: resp => resp && resp.toString().split('').reverse().join(''),
                 });
 
-                it('sets the raw result to the response', () => {
-                    expect(wrapper.find('#rawResult').text()).toBe('foo');
-                });
-
-                it('sets the result to the parsed result', () => {
-                    expect(wrapper.find('#result').text()).toBe('oof');
-                });
-
-                it('sets loading to false', () => {
-                    expect(wrapper.find('#loading').text()).toBe('false');
+                wrapper = mount(testComponent, {
+                    localVue,
                 });
             });
 
-            describe('when promise rejects', () => {
-                beforeEach(() => {
-                    reject('bar');
-                });
+            sharedTests('oof', 'BAR');
+        });
 
-                it('sets the raw error to the response', () => {
-                    expect(wrapper.find('#rawError').text()).toBe('bar');
-                });
+        describe('when parse functions are not used', () => {
+            beforeEach(() => {
+                localVue.use(VueFormState);
 
-                it('sets the error to the parsed error', () => {
-                    expect(wrapper.find('#error').text()).toBe('BAR');
-                });
-
-                it('sets loading to false', () => {
-                    expect(wrapper.find('#loading').text()).toBe('false');
+                wrapper = mount(testComponent, {
+                    localVue,
                 });
             });
+
+            sharedTests('foo', 'bar');
         });
     });
 });
