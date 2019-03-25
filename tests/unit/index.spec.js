@@ -40,7 +40,7 @@ describe('VueFormState', () => {
 
             testComponent = {
                 template: `
-                    <form-state :submit="submit">
+                    <form-state :submit="submit" @result="$emit('result', $event)">
                         <template
                             v-slot:default="{
                                 submit,
@@ -113,6 +113,12 @@ describe('VueFormState', () => {
 
                     it('sets loading to false', () => {
                         expect(wrapper.find('#loading').text()).toBe('false');
+                    });
+
+                    it('emits a result event with the result value', () => {
+                        expect(wrapper.emitted().result).toBeTruthy();
+                        expect(wrapper.emitted().result.length).toBe(1);
+                        expect(wrapper.emitted().result[0]).toEqual([parsedResult]);
                     });
                 });
 

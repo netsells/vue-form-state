@@ -18,13 +18,25 @@
         name: 'vue-form-state',
 
         mixins: [
-            withFormState(),
+            withFormState({
+                handleSubmit: 'handleSubmitMixin'
+            }),
         ],
 
         props: {
             submit: {
                 type: Function,
                 required: true,
+            },
+        },
+
+        methods: {
+            async handleSubmit(...args) {
+                await this.handleSubmitMixin(...args);
+
+                if (this.result) {
+                    this.$emit('result', this.result);
+                }
             },
         },
     };
