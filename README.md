@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/vue-form-state.svg)](https://badge.fury.io/js/vue-form-state)
+[![npm version](https://badge.fury.io/js/%40netsells%2Fvue-form-state.svg)](https://badge.fury.io/js/%40netsells%2Fvue-form-state)
 [![Build Status](https://travis-ci.com/netsells/vue-form-state.svg?branch=master)](https://travis-ci.com/netsells/vue-form-state)
 [![codecov](https://codecov.io/gh/netsells/vue-form-state/branch/master/graph/badge.svg)](https://codecov.io/gh/netsells/vue-form-state)
 
