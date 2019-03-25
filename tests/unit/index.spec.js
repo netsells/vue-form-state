@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import Vue from 'vue';
 
-import VueFormState from '@/index';
+import VueFormState, { VueFormState as FormState } from '@/index';
 
 Vue.use(VueFormState);
 
@@ -40,11 +40,7 @@ describe('VueFormState', () => {
 
             testComponent = {
                 template: `
-                    <form-state
-                        :submit="submit"
-                        @result="$emit('result', $event)"
-                        @error="$emit('error', $event)"
-                    >
+                    <form-state :submit="submit">
                         <template
                             v-slot:default="{
                                 submit,
@@ -119,14 +115,15 @@ describe('VueFormState', () => {
                         expect(wrapper.find('#loading').text()).toBe('false');
                     });
 
-                    it('emits a result event with the parsed result value', () => {
-                        expect(wrapper.emitted().result).toBeTruthy();
-                        expect(wrapper.emitted().result.length).toBe(1);
-                        expect(wrapper.emitted().result[0]).toEqual([parsedResult]);
+                    it('emits a result event with the parsed and raw result value', () => {
+                        const { result } = wrapper.find(FormState).emitted();
+                        expect(result).toBeTruthy();
+                        expect(result.length).toBe(1);
+                        expect(result[0]).toEqual([parsedResult, 'foo']);
                     });
 
                     it('does not emit an error', () => {
-                        expect(wrapper.emitted().error).toBeFalsy();
+                        expect(wrapper.find(FormState).emitted().error).toBeFalsy();
                     });
                 });
 
@@ -147,14 +144,16 @@ describe('VueFormState', () => {
                         expect(wrapper.find('#loading').text()).toBe('false');
                     });
 
-                    it('emits an error event with the parsed error value', () => {
-                        expect(wrapper.emitted().error).toBeTruthy();
-                        expect(wrapper.emitted().error.length).toBe(1);
-                        expect(wrapper.emitted().error[0]).toEqual([parsedError]);
+                    it('emits an error event with the parsed and raw error value', () => {
+                        const { error } = wrapper.find(FormState).emitted();
+
+                        expect(error).toBeTruthy();
+                        expect(error.length).toBe(1);
+                        expect(error[0]).toEqual([parsedError, 'bar']);
                     });
 
                     it('does not emit a result', () => {
-                        expect(wrapper.emitted().result).toBeFalsy();
+                        expect(wrapper.find(FormState).emitted().result).toBeFalsy();
                     });
                 });
             });

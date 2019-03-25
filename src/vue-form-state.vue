@@ -35,11 +35,11 @@
                 await this.handleSubmitMixin(...args);
 
                 if (this.result) {
-                    this.$emit('result', this.result);
+                    this.$emit('result', this.result, this.rawResult);
                 }
 
                 if (this.error) {
-                    this.$emit('error', this.error);
+                    this.$emit('error', this.error, this.rawError);
                 }
             },
         },
