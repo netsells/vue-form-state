@@ -25,4 +25,13 @@ module.exports = {
   testURL: 'http://localhost/',
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**'],
-}
+  coverageReporters: ['text', 'html'],
+  coverageThreshold: {
+    global: {
+      branches: 100,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
+  },
+};
