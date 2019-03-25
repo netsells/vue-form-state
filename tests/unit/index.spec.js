@@ -40,7 +40,11 @@ describe('VueFormState', () => {
 
             testComponent = {
                 template: `
-                    <form-state :submit="submit" @result="$emit('result', $event)">
+                    <form-state
+                        :submit="submit"
+                        @result="$emit('result', $event)"
+                        @error="$emit('error', $event)"
+                    >
                         <template
                             v-slot:default="{
                                 submit,
@@ -115,10 +119,14 @@ describe('VueFormState', () => {
                         expect(wrapper.find('#loading').text()).toBe('false');
                     });
 
-                    it('emits a result event with the result value', () => {
+                    it('emits a result event with the parsed result value', () => {
                         expect(wrapper.emitted().result).toBeTruthy();
                         expect(wrapper.emitted().result.length).toBe(1);
                         expect(wrapper.emitted().result[0]).toEqual([parsedResult]);
+                    });
+
+                    it('does not emit an error', () => {
+                        expect(wrapper.emitted().error).toBeFalsy();
                     });
                 });
 
@@ -137,6 +145,16 @@ describe('VueFormState', () => {
 
                     it('sets loading to false', () => {
                         expect(wrapper.find('#loading').text()).toBe('false');
+                    });
+
+                    it('emits an error event with the parsed error value', () => {
+                        expect(wrapper.emitted().error).toBeTruthy();
+                        expect(wrapper.emitted().error.length).toBe(1);
+                        expect(wrapper.emitted().error[0]).toEqual([parsedError]);
+                    });
+
+                    it('does not emit a result', () => {
+                        expect(wrapper.emitted().result).toBeFalsy();
                     });
                 });
             });

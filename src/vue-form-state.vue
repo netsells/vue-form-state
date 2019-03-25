@@ -37,6 +37,10 @@
                 if (this.result) {
                     this.$emit('result', this.result);
                 }
+
+                if (this.error) {
+                    this.$emit('error', this.error);
+                }
             },
         },
     };
