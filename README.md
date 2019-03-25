@@ -52,7 +52,7 @@ Change the name of the component (`form-state` by default)
 In your template:
 
 ```html
-    <form-state :submit="submitForm" class="contact-form">
+    <form-state :submit="submitForm">
         <template
             v-slot:default="{
                 submit,
@@ -88,3 +88,27 @@ The result of this promise will be set to `rawResult` in the slot. If it errors,
 the error will be set to the `rawError` scoped slot. If you have supplied either
 a `parseResult` or `parseError` optional functional, the result of these will be
 available as `result` and `error` respectively.
+
+You can also get the result or error via an event emitted by `form-state`:
+
+```html
+<form-state
+    :submit="submitForm"
+    @result="handleResult"
+    @error="handleError"
+>
+    <!-- template -->
+</form-state>
+```
+
+```javascript
+methods: {
+    handleResult(result, rawResult) {
+        // code
+    },
+
+    handleError(error, rawError) {
+        // code
+    },
+}
+```
