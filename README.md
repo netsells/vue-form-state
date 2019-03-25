@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/vue-form-state.svg)](https://badge.fury.io/js/vue-form-state)
+
 # Vue Form State
 
 Handle asynchronous loading, error and result states based on the result of a
