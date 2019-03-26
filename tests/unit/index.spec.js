@@ -10,6 +10,12 @@ describe('VueFormState', () => {
         expect(VueFormState).toBeTruthy();
     });
 
+    describe('form-state', () => {
+        it('has a name of form-state', () => {
+            expect(FormState.name).toBe('form-state');
+        });
+    });
+
     it('installs its functions', () => {
         const vm = new Vue();
 

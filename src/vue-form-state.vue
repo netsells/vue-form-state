@@ -15,7 +15,7 @@
     import withFormState from './with-form-state.mixin';
 
     export default {
-        name: 'vue-form-state',
+        name: 'form-state',
 
         mixins: [
             withFormState({
