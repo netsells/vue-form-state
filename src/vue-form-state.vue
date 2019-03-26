@@ -15,8 +15,6 @@
     import withFormState from './with-form-state.mixin';
 
     export default {
-        name: 'form-state',
-
         mixins: [
             withFormState({
                 handleSubmit: 'handleSubmitMixin'

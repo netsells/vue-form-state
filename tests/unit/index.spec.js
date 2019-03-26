@@ -11,8 +11,11 @@ describe('VueFormState', () => {
     });
 
     describe('form-state', () => {
-        it('has a name of form-state', () => {
-            expect(FormState.name).toBe('form-state');
+        it('has the correct prop config', () => {
+            expect(FormState.props.submit).toEqual({
+                type: Function,
+                required: true,
+            });
         });
     });
 
