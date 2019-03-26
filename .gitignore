@@ -21,3 +21,5 @@ yarn-error.log*
 *.sw*
 coverage
 package-lock.json
+.stryker-tmp
+reports
