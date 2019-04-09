@@ -61,6 +61,7 @@ describe('VueFormState', () => {
                             }"
                         >
                             <form @submit.prevent="submit">
+                                <div id="submit">{{ typeof submit }}</div>
                                 <div id="rawResult">{{ rawResult }}</div>
                                 <div id="rawError">{{ rawError }}</div>
                                 <div id="error">{{ error }}</div>
@@ -88,6 +89,10 @@ describe('VueFormState', () => {
 
             it('sets loading to false', () => {
                 expect(wrapper.find('#loading').text()).toBe('false');
+            });
+
+            it('sets submit to a function', () => {
+                expect(wrapper.find('#submit').text()).toBe('function');
             });
 
             describe('when form submitted', () => {
