@@ -31,7 +31,7 @@ describe('VueFormState', () => {
     describe('when the form-state component is used', () => {
         let localVue;
         let wrapper;
-        let submit;
+        let testSubmit;
         let testComponent;
         let promise;
         let resolve;
@@ -45,11 +45,11 @@ describe('VueFormState', () => {
 
             localVue = createLocalVue();
 
-            submit = jest.fn().mockImplementation(() => promise);
+            testSubmit = jest.fn().mockImplementation(() => promise);
 
             testComponent = {
                 template: `
-                    <form-state :submit="submit">
+                    <form-state :submit="testSubmit">
                         <template
                             v-slot:default="{
                                 submit,
@@ -72,7 +72,7 @@ describe('VueFormState', () => {
                 `,
 
                 methods: {
-                    submit,
+                    testSubmit,
                 },
             };
         });
@@ -100,7 +100,7 @@ describe('VueFormState', () => {
                 });
 
                 it('calls the submit function', () => {
-                    expect(submit).toHaveBeenCalled();
+                    expect(testSubmit).toHaveBeenCalled();
                 });
 
                 it('sets loading to true', () => {
