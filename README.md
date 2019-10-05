@@ -51,9 +51,10 @@ Change the name of the component (`form-state` by default)
 
 ```html
 <template>
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit({ foo })">
         <p>Result: {{ result }}</p>
         <p>Error: {{ error }}</p>
+        <input type="text" v-model="foo" />
         <button :disabled="loading">Submit</button>
     </form>
 </template>
@@ -64,7 +65,13 @@ import { useFormState } from '@netsells/vue-form-state';
 
 export default {
     setup() {
-        return useFormState(async () => await fetch());
+        return useFormState(async ({ foo }) => await fetch({ foo }));
+    },
+
+    data() {
+        return {
+            foo: '',
+        };
     },
 };
 ```
