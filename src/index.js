@@ -1,7 +1,7 @@
 import VueCompositionApi from '@vue/composition-api';
 
 import VueFormState from './vue-form-state';
-import useFormState from './vue-form-state.composite';
+import useFormState from './use-form-state.composite';
 
 export { VueFormState, useFormState };
 
