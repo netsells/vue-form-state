@@ -51,7 +51,7 @@ Change the name of the component (`form-state` by default)
 
 ```html
 <template>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="submit">
         <p>Result: {{ result }}</p>
         <p>Error: {{ error }}</p>
         <button :disabled="loading">Submit</button>
@@ -63,13 +63,6 @@ Change the name of the component (`form-state` by default)
 import { useFormState } from '@netsells/vue-form-state';
 
 export default {
-    props: {
-        submit: {
-            type: Function,
-            required: true,
-        },
-    },
-
     setup() {
         return useFormState(async () => await fetch());
     },
