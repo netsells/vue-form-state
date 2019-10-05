@@ -1,11 +1,12 @@
 import { ref, computed } from '@vue/composition-api';
 
-import { parseError, parseResult } from './use-form-parsers.composite';
+import useFormParsers from './use-form-parsers.composite';
 
 const useFormState = (submit) => {
     const loading = ref(false);
     const rawError = ref(null);
     const rawResult = ref(null);
+    const { parseError, parseResult } = useFormParsers();
 
     return {
         async submit(...args) {

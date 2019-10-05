@@ -1,7 +1,16 @@
-import Vue from 'vue';
-import VueCompositionApi, { ref } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 
-Vue.use(VueCompositionApi);
+let parseResult;
+let parseError;
 
-export const parseResult = ref(r => r);
-export const parseError = ref(e => e);
+const useFormParsers = () => {
+    parseResult = parseResult || ref(r => r);
+    parseError = parseError || ref(e => e);
+
+    return {
+        parseResult,
+        parseError,
+    };
+};
+
+export default useFormParsers;
