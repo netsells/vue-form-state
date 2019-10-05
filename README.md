@@ -47,7 +47,36 @@ Parses a response for every form (i.e. globally). Output is stored in `result`
 
 Change the name of the component (`form-state` by default)
 
-## Usage
+## Using the composition
+
+```html
+<template>
+    <form @submit.prevent="submitForm">
+        <p>Result: {{ result }}</p>
+        <p>Error: {{ error }}</p>
+        <button :disabled="loading">Submit</button>
+    </form>
+</template>
+```
+
+```javascript
+import { useFormState } from '@netsells/vue-form-state';
+
+export default {
+    props: {
+        submit: {
+            type: Function,
+            required: true,
+        },
+    },
+
+    setup() {
+        return useFormState(async () => await fetch());
+    },
+};
+```
+
+## Using the component
 
 In your template:
 
