@@ -3,8 +3,9 @@ import VueCompositionApi from '@vue/composition-api';
 import VueFormState from './vue-form-state';
 import useFormState from './use-form-state.composite';
 import useFormParsers from './use-form-parsers.composite';
+import usePromiseState from './use-promise-state.composite';
 
-export { VueFormState, useFormState, useFormParsers };
+export { VueFormState, useFormState, useFormParsers, usePromiseState };
 
 export default class VueFormStatePlugin {
     static install(
