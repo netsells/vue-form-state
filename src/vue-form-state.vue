@@ -31,16 +31,6 @@
             };
         },
 
-        computed: {
-            result() {
-                return this.$formState.parseResult(this.rawResult);
-            },
-
-            error() {
-                return this.$formState.parseError(this.rawError);
-            },
-        },
-
         methods: {
             async handleSubmit(...args) {
                 await this.handleSubmitComposite(...args);

@@ -19,15 +19,6 @@ describe('VueFormState', () => {
         });
     });
 
-    it('installs its functions', () => {
-        const vm = new Vue();
-
-        expect(vm.$formState).toEqual({
-            parseResult: expect.any(Function),
-            parseError: expect.any(Function),
-        });
-    });
-
     describe('when the form-state component is used', () => {
         let localVue;
         let wrapper;
@@ -173,6 +164,18 @@ describe('VueFormState', () => {
             });
         };
 
+        describe('when parse functions are not used', () => {
+            beforeEach(() => {
+                localVue.use(VueFormState);
+
+                wrapper = mount(testComponent, {
+                    localVue,
+                });
+            });
+
+            sharedTests('foo', 'bar');
+        });
+
         describe('when parse functions are used', () => {
             beforeEach(() => {
                 localVue.use(VueFormState, {
@@ -186,18 +189,6 @@ describe('VueFormState', () => {
             });
 
             sharedTests('oof', 'BAR');
-        });
-
-        describe('when parse functions are not used', () => {
-            beforeEach(() => {
-                localVue.use(VueFormState);
-
-                wrapper = mount(testComponent, {
-                    localVue,
-                });
-            });
-
-            sharedTests('foo', 'bar');
         });
     });
 });
