@@ -7,6 +7,8 @@
 Handle asynchronous loading, error and result states based on the result of a
 promise.
 
+Created and maintained by the [Netsells team](https://netsells.co.uk/)
+
 ## Installation
 ```
 yarn add @netsells/vue-form-state
