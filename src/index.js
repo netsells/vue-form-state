@@ -1,22 +1,25 @@
-import VueFormState from './vue-form-state';
-import withFormState from './with-form-state.mixin';
+import VueCompositionApi from '@vue/composition-api';
 
-export { VueFormState, withFormState };
+import VueFormState from './vue-form-state';
+import useFormState from './use-form-state.composite';
+import useFormParsers from './use-form-parsers.composite';
+import usePromiseState from './use-promise-state.composite';
+
+export { VueFormState, useFormState, useFormParsers, usePromiseState };
 
 export default class VueFormStatePlugin {
     static install(
         Vue,
         options = {}
     ) {
+        Vue.use(VueCompositionApi);
+
+        const { parseResult, parseError } = useFormParsers();
+
         const name = options.name || 'form-state';
-        const parseError = options.parseError || function(error) { return error };
-        const parseResult = options.parseResult || function(result) { return result };
+        if (options.parseError) parseError.value = options.parseError;
+        if (options.parseResult) parseResult.value = options.parseResult;
 
         Vue.component(name, VueFormState);
-
-        Vue.prototype.$formState = {
-            parseError,
-            parseResult,
-        };
     }
 }

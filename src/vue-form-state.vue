@@ -12,15 +12,9 @@
 </template>
 
 <script>
-    import withFormState from './with-form-state.mixin';
+    import useFormState from './use-form-state.composite';
 
     export default {
-        mixins: [
-            withFormState({
-                handleSubmit: 'handleSubmitMixin'
-            }),
-        ],
-
         props: {
             submit: {
                 type: Function,
@@ -28,9 +22,18 @@
             },
         },
 
+        setup(props) {
+            const { submit: handleSubmitComposite, ...rest } = useFormState(props.submit);
+
+            return {
+                ...rest,
+                handleSubmitComposite,
+            };
+        },
+
         methods: {
             async handleSubmit(...args) {
-                await this.handleSubmitMixin(...args);
+                await this.handleSubmitComposite(...args);
 
                 if (this.result) {
                     this.$emit('result', this.result, this.rawResult);

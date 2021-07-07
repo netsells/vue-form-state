@@ -1,6 +1,6 @@
 {
   "name": "@netsells/vue-form-state",
-  "version": "0.2.2",
+  "version": "1.0.0-beta.0",
   "license": "ISC",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -62,5 +62,8 @@
     "ie >= 11"
   ],
   "main": "dist/index.common.js",
-  "unpkg": "dist/index.umd.min.js"
+  "unpkg": "dist/index.umd.min.js",
+  "dependencies": {
+    "@vue/composition-api": "^0.3.2"
+  }
 }
